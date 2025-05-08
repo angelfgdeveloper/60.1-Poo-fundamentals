@@ -19,7 +19,8 @@ public class MindStoneSingleton {
     // 500 hilos con tomcat
     public static MindStone getInstance() {
         if (mindStoneInstance == null) {
-            synchronized (MindStoneSingleton.class) { // Manejamos concurrencia
+            log.info("Creating first instance: " + MindStoneSingleton.class);
+            synchronized (MindStoneSingleton.class) { // Manejamos concurrencia y multihilos
                 if (mindStoneInstance == null) {
                     mindStoneInstance = new MindStone();
                 }
