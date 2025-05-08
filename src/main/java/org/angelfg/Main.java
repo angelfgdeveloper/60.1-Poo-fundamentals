@@ -11,15 +11,15 @@ public class Main {
 
     public static void main(String[] args) {
 
-        final var mind = new MindStone(); // OK
-        final Stone power = new PowerStone(); // OK
-        final RealityStone reality = new RealityStone(); // mala practica (funciona)
-
-        mind.userPower();
-        System.out.println("---");
-        power.userPower();
-        System.out.println("---");
-        reality.userPower();
+//        final var mind = new MindStone(); // OK
+//        final Stone power = new PowerStone(); // OK
+//        final RealityStone reality = new RealityStone(); // mala practica (funciona)
+//
+//        mind.userPower();
+//        System.out.println("---");
+//        power.userPower();
+//        System.out.println("---");
+//        reality.userPower();
 
         // SINGLETON PRUEBA
 //        var r1 = RealityStoneSingleton.getInstance();
@@ -34,6 +34,16 @@ public class Main {
         final var guantletService = new GuantletServiceImpl();
 //        guantletService.reality = null;
         guantletService.useGuantlet("");
+
+        // Objetos en memoria diferente
+        final var mind = new MindStone();
+        System.out.println(mind);
+        System.out.println(System.identityHashCode(mind)); // 764308918
+
+        // instance 2
+        final var mindProto = mind.getPrototype();
+        System.out.println(mindProto);
+        System.out.println(System.identityHashCode(mindProto)); // 1476011703
 
     }
 

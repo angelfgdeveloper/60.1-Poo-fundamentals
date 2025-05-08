@@ -2,7 +2,7 @@ package org.angelfg.models;
 
 import lombok.ToString;
 
-@ToString
+@ToString(callSuper = true)
 public class SpaceStone extends Stone {
 
     private static final String COLOR = "Blue";
