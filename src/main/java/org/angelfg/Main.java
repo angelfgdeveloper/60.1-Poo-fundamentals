@@ -1,5 +1,8 @@
 package org.angelfg;
 
+import org.angelfg.factories.PowerStoneFactory;
+import org.angelfg.factories.RealityStoneFactory;
+import org.angelfg.factories.TimeStoneFactory;
 import org.angelfg.models.MindStone;
 import org.angelfg.models.PowerStone;
 import org.angelfg.models.RealityStone;
@@ -31,29 +34,51 @@ public class Main {
 //        if (r1 == r2 && r2 == r3) {
 //            System.out.println("Singleton!!!");
 //        }
-
-        final var guantletService = new GuantletServiceImpl();
-//        guantletService.reality = null;
-        guantletService.useGuantlet("");
-
-        // Objetos en memoria diferente
-        final var mind = new MindStone();
-        System.out.println(mind);
-        System.out.println(System.identityHashCode(mind)); // 764308918
-
-        // instance 2
-//        final var mindProto = mind.getPrototype();
+//
+//        final var guantletService = new GuantletServiceImpl();
+////        guantletService.reality = null;
+//        guantletService.useGuantlet("");
+//
+//        // Objetos en memoria diferente
+//        final var mind = new MindStone();
+//        System.out.println(mind);
+//        System.out.println(System.identityHashCode(mind)); // 764308918
+//
+//        // instance 2
+////        final var mindProto = mind.getPrototype();
+////        System.out.println(mindProto);
+////        System.out.println(System.identityHashCode(mindProto)); // 1476011703
+//
+//        // Mejor practico porque utilizamos principios solid para no llamar a la clase en si
+//        final var mindProto = Prototypes.mindPrototype.buildPrototype(mind);
 //        System.out.println(mindProto);
-//        System.out.println(System.identityHashCode(mindProto)); // 1476011703
+//        System.out.println(System.identityHashCode(mindProto));
+//
+//        // instance 3
+//        final var mindProto3 = Prototypes.mindPrototype.buildPrototype(mind);
+//        System.out.println(mindProto3);
+//        System.out.println(System.identityHashCode(mindProto3));
+//
+//        System.out.println();
+//        System.out.println();
+//        System.out.println();
 
-        final var mindProto = Prototypes.mindPrototype.buildPrototype(mind);
-        System.out.println(mindProto);
-        System.out.println(System.identityHashCode(mindProto));
+        // Factory Method
+//        System.setProperty("scope", "singleton");
+        System.setProperty("scope", "prototype");
 
-        // instance 3
-        final var mindProto3 = Prototypes.mindPrototype.buildPrototype(mind);
-        System.out.println(mindProto3);
-        System.out.println(System.identityHashCode(mindProto3));
+        final var timeStoneFactory = new TimeStoneFactory();
+        var timeStone = timeStoneFactory.createStone();
+
+        final var powerStoneFactory = new PowerStoneFactory();
+        var powerStone = powerStoneFactory.createStone();
+
+        final var realityStoneFactory = new RealityStoneFactory();
+        var factoryStone = realityStoneFactory.createStone();
+
+        System.out.println(timeStone);
+        System.out.println(powerStone);
+        System.out.println(factoryStone);
 
     }
 

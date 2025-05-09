@@ -10,7 +10,7 @@ public class PowerStoneSingleton {
 
     private PowerStoneSingleton() {}
 
-    private static PowerStone getInstance() {
+    public static PowerStone getInstance() {
         if (powerStoneInstance == null) {
             log.info("Creating first instance: " + PowerStoneSingleton.class);
             synchronized (PowerStoneSingleton.class) {

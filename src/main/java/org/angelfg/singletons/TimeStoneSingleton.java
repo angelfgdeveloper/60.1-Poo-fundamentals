@@ -10,7 +10,7 @@ public class TimeStoneSingleton {
 
     private TimeStoneSingleton() {}
 
-    private static TimeStone getInstance() {
+    public static TimeStone getInstance() {
         if (timeStoneInstance == null) {
             log.info("Creating first instance: " + TimeStoneSingleton.class);
             synchronized (TimeStoneSingleton.class) {
