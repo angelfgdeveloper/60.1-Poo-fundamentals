@@ -4,6 +4,7 @@ import org.angelfg.models.MindStone;
 import org.angelfg.models.PowerStone;
 import org.angelfg.models.RealityStone;
 import org.angelfg.models.Stone;
+import org.angelfg.prototypes.Prototypes;
 import org.angelfg.services.GuantletServiceImpl;
 import org.angelfg.singletons.RealityStoneSingleton;
 
@@ -41,9 +42,18 @@ public class Main {
         System.out.println(System.identityHashCode(mind)); // 764308918
 
         // instance 2
-        final var mindProto = mind.getPrototype();
+//        final var mindProto = mind.getPrototype();
+//        System.out.println(mindProto);
+//        System.out.println(System.identityHashCode(mindProto)); // 1476011703
+
+        final var mindProto = Prototypes.mindPrototype.buildPrototype(mind);
         System.out.println(mindProto);
-        System.out.println(System.identityHashCode(mindProto)); // 1476011703
+        System.out.println(System.identityHashCode(mindProto));
+
+        // instance 3
+        final var mindProto3 = Prototypes.mindPrototype.buildPrototype(mind);
+        System.out.println(mindProto3);
+        System.out.println(System.identityHashCode(mindProto3));
 
     }
 
