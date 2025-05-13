@@ -5,18 +5,28 @@ import lombok.extern.java.Log;
 import org.angelfg.models.Stone;
 
 @Log
-@Setter
+//@Setter
 public class GuantletServiceImpl implements GuantletService {
 
     // no es inyeccion de dependencias
     // private final Stone reality = MindStoneSingleton.getInstance();
 
-    private Stone reality;
-    private Stone soul;
-    private Stone mind;
-    private Stone power;
-    private Stone space;
-    private Stone time;
+    private final Stone reality;
+    private final Stone soul;
+    private final Stone mind;
+    private final Stone power;
+    private final Stone space;
+    private final Stone time;
+
+    // @AllConstructor
+    public GuantletServiceImpl(Stone reality, Stone soul, Stone mind, Stone power, Stone space, Stone time) {
+        this.reality = reality;
+        this.soul = soul;
+        this.mind = mind;
+        this.power = power;
+        this.space = space;
+        this.time = time;
+    }
 
     @Override
     public void useGuantlet(String stoneName) {

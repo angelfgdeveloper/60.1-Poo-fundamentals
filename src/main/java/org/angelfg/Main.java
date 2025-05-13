@@ -1,8 +1,6 @@
 package org.angelfg;
 
-import org.angelfg.factories.PowerStoneFactory;
-import org.angelfg.factories.RealityStoneFactory;
-import org.angelfg.factories.TimeStoneFactory;
+import org.angelfg.factories.*;
 import org.angelfg.models.MindStone;
 import org.angelfg.models.PowerStone;
 import org.angelfg.models.RealityStone;
@@ -23,12 +21,25 @@ public class Main {
         System.setProperty("scope", "singleton");
 
         var realityFactory = new RealityStoneFactory();
+        var soulFactory = new SoulStoneFactory();
+        var mindFactory = new MindStoneFactory();
+        var powerFactory = new PowerStoneFactory();
+        var spaceFactory = new SpaceStoneFactory();
         var timeFactory = new TimeStoneFactory();
 
-        final GuantletServiceImpl guantletService = new GuantletServiceImpl();
+        // DI por contructor
+        final GuantletServiceImpl guantletService = new GuantletServiceImpl(
+                realityFactory.createStone(),
+                soulFactory.createStone(),
+                mindFactory.createStone(),
+                powerFactory.createStone(),
+                spaceFactory.createStone(),
+                timeFactory.createStone()
+        );
+
         // Inyeccion de depdencias por setter
-        guantletService.setReality(realityFactory.createStone());
-        guantletService.setTime(timeFactory.createStone());
+//        guantletService.setReality(realityFactory.createStone());
+//        guantletService.setTime(timeFactory.createStone());
 
         guantletService.useGuantlet("reality");
         guantletService.useGuantlet("time");
