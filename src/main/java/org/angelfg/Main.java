@@ -23,14 +23,18 @@ public class Main {
         System.setProperty("scope", "singleton");
 
         var realityFactory = new RealityStoneFactory();
+        var timeFactory = new TimeStoneFactory();
 
         final GuantletServiceImpl guantletService = new GuantletServiceImpl();
         // Inyeccion de depdencias por setter
         guantletService.setReality(realityFactory.createStone());
+        guantletService.setTime(timeFactory.createStone());
 
         guantletService.useGuantlet("reality");
+        guantletService.useGuantlet("time");
+        guantletService.useGuantlet("soul");
 
-
+        guantletService.useFullPower();
     }
 
     private static void example_1() {
