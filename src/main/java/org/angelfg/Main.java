@@ -7,17 +7,21 @@ import org.angelfg.models.RealityStone;
 import org.angelfg.models.Stone;
 import org.angelfg.prototypes.Prototypes;
 import org.angelfg.services.GuantletServiceImpl;
+import org.angelfg.services.GuantletServiceImpl2;
 import org.angelfg.singletons.RealityStoneSingleton;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Map;
 
 public class Main {
 
     public static void main(String[] args) {
+        java_reflection();
+    }
 
-//            example_1();
-
+    private static void via_contructor() {
         System.setProperty("scope", "singleton");
 
         var realityFactory = new RealityStoneFactory();
@@ -45,6 +49,41 @@ public class Main {
         guantletService.useGuantlet("time");
         guantletService.useGuantlet("soul");
 
+        guantletService.useFullPower();
+    }
+
+    private static void java_reflection() {
+        System.setProperty("scope", "singleton");
+
+        var realityFactory = new RealityStoneFactory();
+        var soulFactory = new SoulStoneFactory();
+        var mindFactory = new MindStoneFactory();
+        var powerFactory = new PowerStoneFactory();
+        var spaceFactory = new SpaceStoneFactory();
+        var timeFactory = new TimeStoneFactory();
+
+        var reality = realityFactory.createStone();
+        var soul = soulFactory.createStone();
+        var mind = mindFactory.createStone();
+        var power = powerFactory.createStone();
+        var space = spaceFactory.createStone();
+        var time = timeFactory.createStone();
+
+        Map<String, Stone> stones = Map.of(
+                "reality", reality,
+                "soul", soul,
+                "mind", mind,
+                "power", power,
+                "space", space,
+                "time", time
+        );
+
+        final GuantletServiceImpl2 guantletService = new GuantletServiceImpl2();
+
+        // DI by field
+        guantletService.setStones(stones);
+
+        guantletService.useGuantlet("power");
         guantletService.useFullPower();
     }
 

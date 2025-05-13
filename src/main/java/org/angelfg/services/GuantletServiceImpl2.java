@@ -1,6 +1,6 @@
 package org.angelfg.services;
 
-import lombok.Setter;
+import lombok.NoArgsConstructor;
 import lombok.extern.java.Log;
 import org.angelfg.models.Stone;
 
@@ -8,27 +8,17 @@ import java.lang.reflect.Field;
 import java.util.Map;
 
 @Log
-//@Setter
-public class GuantletServiceImpl implements GuantletService {
+//@NoArgsConstructor
+public class GuantletServiceImpl2 implements GuantletService {
 
-    // no es inyeccion de dependencias
-    // private final Stone reality = MindStoneSingleton.getInstance();
+    private Stone reality;
+    private Stone soul;
+    private Stone mind;
+    private Stone power;
+    private Stone space;
+    private Stone time;
 
-    private final Stone reality;
-    private final Stone soul;
-    private final Stone mind;
-    private final Stone power;
-    private final Stone space;
-    private final Stone time;
-
-    // @AllConstructor
-    public GuantletServiceImpl(Stone reality, Stone soul, Stone mind, Stone power, Stone space, Stone time) {
-        this.reality = reality;
-        this.soul = soul;
-        this.mind = mind;
-        this.power = power;
-        this.space = space;
-        this.time = time;
+    public GuantletServiceImpl2() {
     }
 
     @Override
@@ -65,10 +55,25 @@ public class GuantletServiceImpl implements GuantletService {
 
     }
 
-    // Inyeccion de dependencias
-    // o @Setter
-//    public void setReality(Stone reality) {
-//        this.reality = reality;
-//    }
+    // DI via propiedad
+    public void setStones(Map<String, Stone> stones) {
+
+        stones.forEach((fieldName, stoneDependency) -> {
+
+            try {
+
+                Field field = this.getClass().getDeclaredField(fieldName);
+                field.setAccessible(true); // quita el private de java reflection
+                field.set(this, stoneDependency); // Depdenncy inyection via reflection
+
+                log.info("Dependency injection by field " + fieldName);
+
+            } catch (NoSuchFieldException | IllegalAccessException e) {
+                log.warning("Error on DI by fields");
+            }
+
+        });
+
+    }
 
 }
