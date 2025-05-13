@@ -11,11 +11,30 @@ import org.angelfg.prototypes.Prototypes;
 import org.angelfg.services.GuantletServiceImpl;
 import org.angelfg.singletons.RealityStoneSingleton;
 
+import java.util.Collections;
+import java.util.LinkedList;
+
 public class Main {
 
     public static void main(String[] args) {
 
-//        final var mind = new MindStone(); // OK
+//            example_1();
+
+        System.setProperty("scope", "singleton");
+
+        var realityFactory = new RealityStoneFactory();
+
+        final GuantletServiceImpl guantletService = new GuantletServiceImpl();
+        // Inyeccion de depdencias por setter
+        guantletService.setReality(realityFactory.createStone());
+
+        guantletService.useGuantlet("reality");
+
+
+    }
+
+    private static void example_1() {
+        //        final var mind = new MindStone(); // OK
 //        final Stone power = new PowerStone(); // OK
 //        final RealityStone reality = new RealityStone(); // mala practica (funciona)
 //
@@ -65,20 +84,20 @@ public class Main {
 
         // Factory Method
 //        System.setProperty("scope", "singleton");
-        System.setProperty("scope", "prototype");
-
-        final var timeStoneFactory = new TimeStoneFactory();
-        var timeStone = timeStoneFactory.createStone();
-
-        final var powerStoneFactory = new PowerStoneFactory();
-        var powerStone = powerStoneFactory.createStone();
-
-        final var realityStoneFactory = new RealityStoneFactory();
-        var factoryStone = realityStoneFactory.createStone();
-
-        System.out.println(timeStone);
-        System.out.println(powerStone);
-        System.out.println(factoryStone);
+//        System.setProperty("scope", "prototype");
+//
+//        final var timeStoneFactory = new TimeStoneFactory();
+//        var timeStone = timeStoneFactory.createStone();
+//
+//        final var powerStoneFactory = new PowerStoneFactory();
+//        var powerStone = powerStoneFactory.createStone();
+//
+//        final var realityStoneFactory = new RealityStoneFactory();
+//        var factoryStone = realityStoneFactory.createStone();
+//
+//        System.out.println(timeStone);
+//        System.out.println(powerStone);
+//        System.out.println(factoryStone);
 
     }
 
