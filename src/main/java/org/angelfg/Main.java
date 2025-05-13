@@ -1,5 +1,6 @@
 package org.angelfg;
 
+import org.angelfg.configs.StoneContext;
 import org.angelfg.factories.*;
 import org.angelfg.models.MindStone;
 import org.angelfg.models.PowerStone;
@@ -18,7 +19,20 @@ import java.util.Map;
 public class Main {
 
     public static void main(String[] args) {
-        java_reflection();
+        inversion_control();
+    }
+
+    private static void inversion_control() {
+        final var gauntletService = StoneContext.setContext(
+                pre -> System.out.println("Do something 1"),
+                post -> System.out.println("Do something 2")
+        );
+
+        gauntletService.useGuantlet("power");
+
+        gauntletService.useFullPower();
+
+        StoneContext.destroyContext(gauntletService);
     }
 
     private static void via_contructor() {
@@ -69,7 +83,7 @@ public class Main {
         var space = spaceFactory.createStone();
         var time = timeFactory.createStone();
 
-        Map<String, Stone> stones = Map.of(
+        Map<String, Stone> instances = Map.of(
                 "reality", reality,
                 "soul", soul,
                 "mind", mind,
@@ -81,7 +95,7 @@ public class Main {
         final GuantletServiceImpl2 guantletService = new GuantletServiceImpl2();
 
         // DI by field
-        guantletService.setStones(stones);
+        guantletService.setStones(instances);
 
         guantletService.useGuantlet("power");
         guantletService.useFullPower();
